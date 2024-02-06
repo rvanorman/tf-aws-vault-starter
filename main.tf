@@ -5,12 +5,15 @@
  *
  */
 
-data "aws_region" "current" {}
+provider "aws" {
+  # your AWS region
+  region = var.aws_region
+}
 
 module "iam" {
   source = "./modules/iam"
 
-  aws_region                  = data.aws_region.current.name
+  aws_region                  = var.aws_region
   kms_key_arn                 = module.kms.kms_key_arn
   permissions_boundary        = var.permissions_boundary
   resource_name_prefix        = var.resource_name_prefix
@@ -52,7 +55,7 @@ module "networking" {
 module "user_data" {
   source = "./modules/user_data"
 
-  aws_region                  = data.aws_region.current.name
+  aws_region                  = var.aws_region
   kms_key_arn                 = module.kms.kms_key_arn
   leader_tls_servername       = var.leader_tls_servername
   resource_name_prefix        = var.resource_name_prefix

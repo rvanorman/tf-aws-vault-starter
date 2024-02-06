@@ -23,6 +23,11 @@ variable "additional_lb_target_groups" {
   default     = []
 }
 
+variable "aws_region" {
+  type        = string
+  description = "The Region you wish to deploy into"
+}
+
 variable "common_tags" {
   type        = map(string)
   description = "(Optional) Map of common tags for all taggable AWS resources."
